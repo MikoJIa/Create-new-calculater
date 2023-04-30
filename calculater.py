@@ -13,6 +13,9 @@ class Calculater:
     def minus(self):
         return self.num1 - self.num2
 
+    def multiply(self):
+        return self.num1 * self.num2
+
 
 result = Calculater(2, 1)
 
