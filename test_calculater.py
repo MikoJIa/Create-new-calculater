@@ -1,71 +1,33 @@
 import pytest
+from calculater import Calculater
+from exception import MyZeroDivisionError
 
-from calculater import calc_plus, calc_minus, calc_division, calc_multiply, \
-    calc_exponent
-
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (2, 2, '+', 4),
-        (2, -2, '+', 0),
-        (2, 0, '+', 2)
-    ]
-)
-def test_calc_plus(num1, num2, sign, result):
-    assert calc_plus(num1, num2) == result
+@pytest.mark.parametrize("num1, num2, result", [(2, 2, 4), (2, -2, 0), (2, 0, 2)])
+def test_plus(num1, num2, result):
+    a1 = Calculater(num1, num2)
+    assert a1.plus() == result
 
 
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (2, 1, '-', 1),
-        (3, 2, '-', 1),
-        (2, 0, '-', 2)
-    ]
-)
-def test_calc_minus(num1, num2, sign, result):
-    assert calc_minus(num1, num2) == result
+@pytest.mark.parametrize("num1, num2, result", [(2, 2, 0), (2, -2, 4), (2, 0, 2)])
+def test_minus(num1, num2, result):
+    a2 = Calculater(num1, num2)
+    assert a2.minus() == result
 
 
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (10, 2, '/', 5),
-        (10, 5, '/', 2),
-        (5, 2, '/', 2.5)
-    ]
-)
-def test_calc_division(num1, num2, sign, result):
-    assert calc_division(num1, num2) == result
+@pytest.mark.parametrize("num1, num2, result", [(2, 2, 4), (2, -2, -4), (2, 0, 0)])
+def test_multiply(num1, num2, result):
+    a3 = Calculater(num1, num2)
+    assert a3.multiply() == result
 
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (10, 0, '/', ZeroDivisionError)
-    ]
-)
-def test_Zero_Division_Error(num1, num2, sign, result):
-    with pytest.raises(result):
-        assert calc_division(num1, num2) == result
 
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (10, 2, '*', 20),
-        (10, -2, '*', -20),
-        (-10, -2, '*', 20)
-    ]
-)
-def test_calc_multiply(num1, num2, sign, result):
-    assert calc_multiply(num1, num2) == result
+@pytest.mark.parametrize("num1, num2, result", [(2, 0, ZeroDivisionError)])
+def test_zero_division_error(num1, num2, result):
+    a4 = Calculater(num1, num2)
+    with pytest.raises(ZeroDivisionError):
+        assert a4.division() == result
 
-@pytest.mark.parametrize(
-    'num1, num2, sign, result',
-    [
-        (2, 2, '**', 4),
-        (2, -2, '**', 0.25),
-        (-2, 2, '**', 4)
-    ]
-)
-def test_calc_exponent(num1, num2, sign, result):
-    assert calc_exponent(num1, num2) == result
+
+@pytest.mark.parametrize('num1, num2, result', [(2, 2, 1), (4, -2, -2), (150, 50, 3)])
+def test_division(num1, num2, result):
+    a5 = Calculater(num1, num2)
+    assert a5.division() == result
