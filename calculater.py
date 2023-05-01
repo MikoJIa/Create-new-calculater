@@ -1,11 +1,15 @@
+from exception import NumberError, MyException
+
 class Calculater:
 
     def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
         try:
-            self.num1 = int(num1)
-            self.num2 = int(num2)
-        except TypeError:
-            raise TypeError
+            if not isinstance(self.num1, int) or not isinstance(self.num2, int):
+                raise MyException('Вводимые данные должны соответствовать типу int ')
+        except ValueError:
+            raise MyException('Вводимые данные должны соответствовать типу int ')
 
     def plus(self):
         return self.num1 + self.num2
@@ -16,7 +20,12 @@ class Calculater:
     def multiply(self):
         return self.num1 * self.num2
 
+    def division(self) -> int | float:
+        return self.num1 / self.num2
 
-result = Calculater(2, 1)
 
-print(result.minus())
+# a = Calculater(2, '1')
+# print(a.plus())
+# #
+# print(result.division())
+

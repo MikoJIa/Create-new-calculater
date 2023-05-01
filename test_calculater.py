@@ -1,6 +1,6 @@
 import pytest
 from calculater import Calculater
-
+from exception import MyZeroDivisionError
 
 @pytest.mark.parametrize("num1, num2, result", [(2, 2, 4), (2, -2, 0), (2, 0, 2)])
 def test_plus(num1, num2, result):
@@ -19,3 +19,15 @@ def test_multiply(num1, num2, result):
     a3 = Calculater(num1, num2)
     assert a3.multiply() == result
 
+
+@pytest.mark.parametrize("num1, num2, result", [(2, 0, ZeroDivisionError)])
+def test_zero_division_error(num1, num2, result):
+    a4 = Calculater(num1, num2)
+    with pytest.raises(ZeroDivisionError):
+        assert a4.division() == result
+
+
+@pytest.mark.parametrize('num1, num2, result', [(2, 2, 1), (4, -2, -2), (150, 50, 3)])
+def test_division(num1, num2, result):
+    a5 = Calculater(num1, num2)
+    assert a5.division() == result
