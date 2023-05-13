@@ -1,4 +1,4 @@
-class MyZeroDivisionError(Exception):
+class MyZeroDivisionError(ZeroDivisionError):
     '''Выбрасывается когда делительт равен нулю'''
     pass
 

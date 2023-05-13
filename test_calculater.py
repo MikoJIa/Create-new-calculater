@@ -20,11 +20,12 @@ def test_multiply(num1, num2, result):
     assert a3.multiply() == result
 
 
-@pytest.mark.parametrize("num1, num2, result", [(2, 0, ZeroDivisionError)])
+@pytest.mark.parametrize("num1, num2, result", [(2, 0, MyZeroDivisionError)])
 def test_zero_division_error(num1, num2, result):
     a4 = Calculater(num1, num2)
-    with pytest.raises(ZeroDivisionError):
-        assert a4.division() == result
+    with pytest.raises(MyZeroDivisionError):
+        assert 2 == 2
+        a4.division()
 
 
 @pytest.mark.parametrize('num1, num2, result', [(2, 2, 1), (4, -2, -2), (150, 50, 3)])
