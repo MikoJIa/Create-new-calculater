@@ -19,41 +19,71 @@ class Person:
         return f"Person {self.name} - white man"
 
     def set_name(self, value):
-        return setattr(self, "name", value)
+        setattr(self, "name", value)
 
     def set_surname(self, value):
-        return setattr(self, "surname", value)
+        setattr(self, "surname", value)
 
     def set_age(self, value):
-        return setattr(self, "age", value)
+        setattr(self, "age", value)
 
     def set_weight(self, value):
-        return setattr(self, "weight", value)
+        setattr(self, "weight", value)
 
     def set_height(self, value):
-        return setattr(self, "height", value)
+        setattr(self, "height", value)
 
     def set_hair_color(self, value):
-        return setattr(self, "hair_color", value)
+        setattr(self, "hair_color", value)
 
     def set_skin_color(self, value):
-        return setattr(self, "skin_color", value)
+        setattr(self, "skin_color", value)
 
-    def compare_by_weight(self, person2):
-        if person1.weight > person2.weight:
-            print(f"{person1.name} the weight is greater than that of {person2.name}")
+    def get_print_weight(self, obj):
+        if not self.__gt__(obj):
+            print(f'{obj.name} весит больше чем {self.name}')
         else:
-            print(f"{person2.name} the weight is greater than that of {person1.name}")
+            print(f'{self.name} весит больше чем {obj.name}')
 
-    def compare_by_height(self, person2):
-        if person1.height > person2.height:
-            print(
-                f"{person1.name} {person1.surname} higher than {person2.name} {person2.surname}"
-            )
+    def get_print_height(self, obj):
+        if not self.__gt__(obj):
+            print(f'{self.name} выше чем {obj.name}')
         else:
-            print(
-                f"{person2.name} {person1.surname} higher than {person1.name} {person2.surname}"
-            )
+            print(f'{obj.name} выше чем {self.name}')
+
+    def compare_by_weight(self, obj: int) -> int:
+        if not isinstance(obj, (int, Person)):
+            raise TypeError('Операнды справа должен иметь тип int или Clock')
+        return obj if isinstance(obj, int) else obj.weight
+
+    def compare_by_height(self, obj):
+        if not isinstance(obj, (int, Person)):
+            raise TypeError('Операнды справа должен иметь тип int или Clock')
+        return obj if isinstance(obj, int) else obj.height
+
+    def __eq__(self, obj):
+        if self.weight:
+            res = self.compare_by_weight(obj)
+            return self.weight == res
+        if self.height:
+            res = self.compare_by_height(obj)
+            return self.height == res
+
+    def __lt__(self, obj):
+        if self.weight:
+            res = self.compare_by_weight(obj)
+            return self.weight < res
+        if self.height:
+            res = self.compare_by_height(obj)
+            return self.height < res
+
+    def __gt__(self, obj):
+        if self.weight:
+            res = self.compare_by_weight(obj)
+            return self.weight > res
+        if self.height:
+            res = self.compare_by_height(obj)
+            return self.height > res
 
     def person_info(self):
         print(
@@ -63,15 +93,18 @@ class Person:
         )
 
 
-person1 = Person("Mikolai", "Popov", 36, 93, 1.82, "silver", "white")
-person1.set_name("Misha")
-person1.set_surname("Petricov")
+person1 = Person("Mikolai", "Popov", 36, 89, 1.90, "silver", "white")
 person1.person_info()
+person1.height = 1.93
 person2 = Person("Grisha", "Vinokur", 40, 90, 1.83, "black", "black")
-person2.person_info()
-Person.compare_by_weight(person1, person2)
-Person.compare_by_height(person1, person2)
-
+person3 = Person('Volodya', 'Pupkin', 34, 82, 1.85, 'silver', 'white')
+person4 = Person('Petya', 'Petrov', 45, 80, 1.86, 'black', 'white')
+person5 = Person('Sasha', 'Shushkevich', 40, 90, 1.87, 'yellow', 'black')
+print(person2.weight > person1.weight)
+print(person5.height == person4.height)
+print(person1.height < person3.height)
+Person.get_print_height(person1, person2)
+Person.get_print_weight(person2, person1)
 
 # class BankAccount:
 #
@@ -103,3 +136,5 @@ Person.compare_by_height(person1, person2)
 # user1.del_balance()
 # user1.balance = 786
 # print(user1.balance)
+
+
