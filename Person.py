@@ -39,13 +39,11 @@ class Person:
     def set_skin_color(self, value):
         setattr(self, "skin_color", value)
 
-    def get_print_weight(self, obj):
+    def get_print_weight_height_age(self, obj):
         if not self.__gt__(obj):
             print(f'{obj.name} весит больше чем {self.name}')
         else:
             print(f'{self.name} весит больше чем {obj.name}')
-
-    def get_print_height(self, obj):
         if not self.__gt__(obj):
             print(f'{self.name} выше чем {obj.name}')
         else:
@@ -53,13 +51,18 @@ class Person:
 
     def compare_by_weight(self, obj: int) -> int:
         if not isinstance(obj, (int, Person)):
-            raise TypeError('Операнды справа должен иметь тип int или Clock')
+            raise TypeError('Операнды справа должен иметь тип int или Person')
         return obj if isinstance(obj, int) else obj.weight
 
     def compare_by_height(self, obj):
         if not isinstance(obj, (int, Person)):
-            raise TypeError('Операнды справа должен иметь тип int или Clock')
+            raise TypeError('Операнды справа должен иметь тип int или Person')
         return obj if isinstance(obj, int) else obj.height
+
+    def compare_by_age(self, obj):
+        if not isinstance(obj, (int, Person)):
+            raise TypeError('Операнды должны быть типа int или Person')
+        return obj if isinstance(obj, int) else obj.age
 
     def __eq__(self, obj):
         if self.weight:
@@ -68,6 +71,9 @@ class Person:
         if self.height:
             res = self.compare_by_height(obj)
             return self.height == res
+        if self.age:
+            res = self.compare_by_age(obj)
+            return self.age == res
 
     def __lt__(self, obj):
         if self.weight:
@@ -76,6 +82,9 @@ class Person:
         if self.height:
             res = self.compare_by_height(obj)
             return self.height < res
+        if self.age:
+            res = self.compare_by_age(obj)
+            return self.age < res
 
     def __gt__(self, obj):
         if self.weight:
@@ -84,6 +93,9 @@ class Person:
         if self.height:
             res = self.compare_by_height(obj)
             return self.height > res
+        if self.age:
+            res = self.compare_by_age(obj)
+            return self.age > res
 
     def person_info(self):
         print(
@@ -103,8 +115,9 @@ person5 = Person('Sasha', 'Shushkevich', 40, 90, 1.87, 'yellow', 'black')
 print(person2.weight > person1.weight)
 print(person5.height == person4.height)
 print(person1.height < person3.height)
-Person.get_print_height(person1, person2)
-Person.get_print_weight(person2, person1)
+Person.get_print_weight_height_age(person1, person2)
+print(person5.age < person4.age)
+print(person5.age > person4.age)
 
 # class BankAccount:
 #
