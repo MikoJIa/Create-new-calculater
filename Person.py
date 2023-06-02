@@ -4,7 +4,7 @@
 
 
 class Person:
-    def __init__(self, name, surname, age, weight, height, hair_color, skin_color):
+    def __init__(self,name, surname, age, weight, height, hair_color, skin_color):
         self.name = name
         self.surname = surname
         self.age = age
@@ -12,11 +12,6 @@ class Person:
         self.height = height
         self.hair_color = hair_color
         self.skin_color = skin_color
-
-    def compare_by_skin_color(self):
-        if self.skin_color is "Black".lower():
-            return f"Person {self.name} - black man"
-        return f"Person {self.name} - white man"
 
     def set_name(self, value):
         self.name = value
@@ -39,14 +34,23 @@ class Person:
     def set_skin_color(self, value):
         self.skin_color = value
 
-    def __eq__(self, obj):
-        if isinstance(obj, (tuple, Person)):
-            return all((self.weight == obj.weight, self.height == obj.height, self.age == obj.age))
-        raise TypeError('Операнды справа должен иметь тип  Person')
+    def tuple_in_list(self, value):
+        l = sum(value)
+        return l
 
-    def __lt__(self, obj):
+    def __eq__(self, obj):
+        if isinstance(obj, Person):
+            return all((self.weight == obj.weight, self.height == obj.height, self.age == obj.age))
+        elif isinstance(obj, (tuple, Person)):
+            res = self.tuple_in_list(obj)
+            summ_person = (self.weight + self.height + self.age)
+            return summ_person == res
+        raise TypeError('Операнды справа должены иметь тип tuple или Person')
+
+    def __lt__(self, *obj):
         if isinstance(obj, Person):
             return all((self.weight < obj.weight, self.height < obj.height, self.age < obj.age))
+        # if
         raise TypeError('Операнды справа должен иметь тип  Person')
 
     def __gt__(self, obj):
@@ -67,10 +71,11 @@ class Person:
 # person1.height = 1.93
 # person2 = Person("Grisha", "Vinokur", 40, 90, 1.83, "black", "black")
 # person3 = Person('Volodya', 'Pupkin', 34, 82, 1.85, 'silver', 'white')
-# person4 = Person('Petya', 'Petrov', 40, 91, 1.87, 'black', 'white')
-# person5 = Person('Sasha', 'Shushkevich', 40, 90, 1.87, 'yellow', 'black')
-#
-# print(person5 == (40, 90, 1.90))
+person4 = Person('Petya', 'Petrov', 40, 90, 1.87, 'black', 'white')
+person5 = Person('Sasha', 'Shushkevich', 40, 90, 1.87, 'yellow', 'black')
+
+print(person5 == (40, 90, 1.87))
+print(person5 == person4)
 # передача через кортеж
 # print(person5 == 90)
 # print(person3 < person2)
